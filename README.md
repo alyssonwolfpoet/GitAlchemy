@@ -30,12 +30,12 @@ Os scripts oferecem as seguintes opções:
 
 1. **Download do script usando Command Prompt (CMD)**:
    ```cmd
-   curl -L -o git_commit_with_options.bat https://raw.githubusercontent.com/alyssonwolfpoet/my-git-scripts/main/git_commit_with_options.bat
+   curl -L -o git_commit_with_options.bat https://raw.githubusercontent.com/alyssonwolfpoet/GitAlchemy/refs/heads/main/git_commit_with_options.bat
    ```
 
 2. **Download do script usando PowerShell**:
    ```powershell
-   Invoke-WebRequest -Uri https://raw.githubusercontent.com/alyssonwolfpoet/my-git-scripts/main/git_commit_with_options.ps1 -OutFile git_commit_with_options.ps1
+   Invoke-WebRequest -Uri https://raw.githubusercontent.com/alyssonwolfpoet/GitAlchemy/refs/heads/main/git_commit_with_options.ps1 -OutFile git_commit_with_options.ps1
    ```
 
 3. **Executar o script**:
@@ -53,7 +53,7 @@ Os scripts oferecem as seguintes opções:
 
 1. **Download do script**:
    ```bash
-   wget https://raw.githubusercontent.com/alyssonwolfpoet/my-git-scripts/main/git_commit_with_options.sh
+   wget https://raw.githubusercontent.com/alyssonwolfpoet/GitAlchemy/refs/heads/main/git_commit_with_options.sh
    ```
 
 2. **Dar permissão de execução**:
