@@ -9,8 +9,14 @@ echo.
 echo Escolha uma operação:
 echo 1. Configurar Git
 echo 2. Commit
-echo 3. Adicionar ao .gitignore
-echo 4. Sair
+echo 3. Pull
+echo 4. Fetch
+echo 5. Push
+echo 6. Listar branches
+echo 7. Alterar branch
+echo 8. Deletar branch
+echo 9. Adicionar ao .gitignore
+echo 10. Sair
 set /p choice="Digite sua escolha: "
 
 if "%choice%"=="1" (
@@ -18,8 +24,20 @@ if "%choice%"=="1" (
 ) else if "%choice%"=="2" (
     call :commit_changes
 ) else if "%choice%"=="3" (
-    call :add_to_gitignore
+    call :pull_changes
 ) else if "%choice%"=="4" (
+    call :fetch_changes
+) else if "%choice%"=="5" (
+    call :push_changes
+) else if "%choice%"=="6" (
+    call :list_branches
+) else if "%choice%"=="7" (
+    call :checkout_branch
+) else if "%choice%"=="8" (
+    call :delete_branch
+) else if "%choice%"=="9" (
+    call :add_to_gitignore
+) else if "%choice%"=="10" (
     echo Saindo...
     exit /b 0
 ) else (
@@ -60,6 +78,32 @@ set commit_message=%type_choice%: %description%
 git add .
 git commit -m "%commit_message%"
 echo Commit realizado com sucesso: %commit_message%
+exit /b
+
+:pull_changes
+git pull
+exit /b
+
+:fetch_changes
+git fetch
+exit /b
+
+:push_changes
+git push
+exit /b
+
+:list_branches
+git branch
+exit /b
+
+:checkout_branch
+set /p branch_name="Digite o nome da branch para mudar: "
+git checkout %branch_name%
+exit /b
+
+:delete_branch
+set /p branch_name="Digite o nome da branch a ser deletada: "
+git branch -d %branch_name%
 exit /b
 
 :add_to_gitignore

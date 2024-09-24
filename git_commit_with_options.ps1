@@ -36,6 +36,38 @@ function Commit-Changes {
     Write-Host "Commit realizado com sucesso: $commitMessage"
 }
 
+# Função para puxar mudanças
+function Pull-Changes {
+    git pull
+}
+
+# Função para buscar mudanças
+function Fetch-Changes {
+    git fetch
+}
+
+# Função para enviar mudanças
+function Push-Changes {
+    git push
+}
+
+# Função para listar branches
+function List-Branches {
+    git branch
+}
+
+# Função para alterar branch
+function Checkout-Branch {
+    $branchName = Read-Host "Digite o nome da branch para mudar"
+    git checkout $branchName
+}
+
+# Função para deletar branch
+function Delete-Branch {
+    $branchName = Read-Host "Digite o nome da branch a ser deletada"
+    git branch -d $branchName
+}
+
 # Função para adicionar ao .gitignore
 function Add-ToGitIgnore {
     $ignoreEntry = Read-Host "Digite o arquivo ou diretório a ser adicionado ao .gitignore"
@@ -55,16 +87,28 @@ function Main {
         Write-Host "Escolha uma operação:"
         Write-Host "1. Configurar Git"
         Write-Host "2. Commit"
-        Write-Host "3. Adicionar ao .gitignore"
-        Write-Host "4. Sair"
+        Write-Host "3. Pull"
+        Write-Host "4. Fetch"
+        Write-Host "5. Push"
+        Write-Host "6. Listar branches"
+        Write-Host "7. Alterar branch"
+        Write-Host "8. Deletar branch"
+        Write-Host "9. Adicionar ao .gitignore"
+        Write-Host "10. Sair"
 
         $choice = Read-Host "Digite sua escolha"
 
         switch ($choice) {
             "1" { Configure-Git }
             "2" { Commit-Changes }
-            "3" { Add-ToGitIgnore }
-            "4" { Write-Host "Saindo..."; exit }
+            "3" { Pull-Changes }
+            "4" { Fetch-Changes }
+            "5" { Push-Changes }
+            "6" { List-Branches }
+            "7" { Checkout-Branch }
+            "8" { Delete-Branch }
+            "9" { Add-ToGitIgnore }
+            "10" { Write-Host "Saindo..."; exit }
             default { Write-Host "Opção inválida. Tente novamente." }
         }
     }

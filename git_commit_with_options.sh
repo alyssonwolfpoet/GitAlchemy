@@ -39,6 +39,38 @@ commit_changes() {
     echo "Commit realizado com sucesso: $commit_message"
 }
 
+# Função para puxar mudanças
+pull_changes() {
+    git pull
+}
+
+# Função para buscar mudanças
+fetch_changes() {
+    git fetch
+}
+
+# Função para enviar mudanças
+push_changes() {
+    git push
+}
+
+# Função para listar branches
+list_branches() {
+    git branch
+}
+
+# Função para alterar branch
+checkout_branch() {
+    read -p "Digite o nome da branch para mudar: " branch_name
+    git checkout "$branch_name"
+}
+
+# Função para deletar branch
+delete_branch() {
+    read -p "Digite o nome da branch a ser deletada: " branch_name
+    git branch -d "$branch_name"
+}
+
 # Função para adicionar ao .gitignore
 add_to_gitignore() {
     read -p "Digite o arquivo ou diretório a ser adicionado ao .gitignore: " ignore_entry
@@ -58,16 +90,28 @@ main() {
         echo "Escolha uma operação:"
         echo "1. Configurar Git"
         echo "2. Commit"
-        echo "3. Adicionar ao .gitignore"
-        echo "4. Sair"
+        echo "3. Pull"
+        echo "4. Fetch"
+        echo "5. Push"
+        echo "6. Listar branches"
+        echo "7. Alterar branch"
+        echo "8. Deletar branch"
+        echo "9. Adicionar ao .gitignore"
+        echo "10. Sair"
 
         read -p "Digite sua escolha: " choice
 
         case $choice in
             1) configure_git ;;
             2) commit_changes ;;
-            3) add_to_gitignore ;;
-            4) echo "Saindo..."; exit 0 ;;
+            3) pull_changes ;;
+            4) fetch_changes ;;
+            5) push_changes ;;
+            6) list_branches ;;
+            7) checkout_branch ;;
+            8) delete_branch ;;
+            9) add_to_gitignore ;;
+            10) echo "Saindo..."; exit ;;
             *) echo "Opção inválida. Tente novamente." ;;
         esac
     done
