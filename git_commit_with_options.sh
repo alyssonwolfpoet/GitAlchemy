@@ -28,7 +28,15 @@ commit_changes() {
 
     # Tipos de commit em um array
     commit_types=("feat" "fix" "docs" "style" "refactor" "test" "chore")
-    echo "Tipos de commit: ${commit_types[*]}"
+    echo "Tipos de commit:"
+    echo "- feat: Uma nova funcionalidade"
+    echo "- fix: Correção de um bug"
+    echo "- docs: Mudanças na documentação"
+    echo "- style: Mudanças que não afetam o significado do código (espaçamento, formatação, etc.)"
+    echo "- refactor: Mudanças de código que não corrigem um bug nem adicionam uma funcionalidade"
+    echo "- test: Adicionando testes ou corrigindo testes existentes"
+    echo "- chore: Atualizações para tarefas de manutenção"
+
     read -p "Digite o tipo de commit: " type_choice
     read -p "Digite a descrição do commit: " description
 
@@ -56,7 +64,8 @@ push_changes() {
 
 # Função para listar branches
 list_branches() {
-    git branch
+    echo "Branches disponíveis:"
+    git branch -v
 }
 
 # Função para alterar branch

@@ -25,7 +25,15 @@ function Commit-Changes {
     git status -s
 
     $commitTypes = @("feat", "fix", "docs", "style", "refactor", "test", "chore")
-    Write-Host "Tipos de commit: $($commitTypes -join ', ')"
+    Write-Host "Tipos de commit:"
+    Write-Host "- feat: Uma nova funcionalidade"
+    Write-Host "- fix: Correção de um bug"
+    Write-Host "- docs: Mudanças na documentação"
+    Write-Host "- style: Mudanças que não afetam o significado do código (espaçamento, formatação, etc.)"
+    Write-Host "- refactor: Mudanças de código que não corrigem um bug nem adicionam uma funcionalidade"
+    Write-Host "- test: Adicionando testes ou corrigindo testes existentes"
+    Write-Host "- chore: Atualizações para tarefas de manutenção"
+
     $typeChoice = Read-Host "Digite o tipo de commit"
     $description = Read-Host "Digite a descrição do commit"
 
@@ -53,7 +61,8 @@ function Push-Changes {
 
 # Função para listar branches
 function List-Branches {
-    git branch
+    Write-Host "Branches disponíveis:"
+    git branch -v
 }
 
 # Função para alterar branch

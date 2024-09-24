@@ -70,7 +70,14 @@ exit /b
 echo Arquivos no diretório:
 git status -s
 set commit_types=feat fix docs style refactor test chore
-echo Tipos de commit: %commit_types%
+echo Tipos de commit: 
+echo - feat: Uma nova funcionalidade
+echo - fix: Correção de um bug
+echo - docs: Mudanças na documentação
+echo - style: Mudanças que não afetam o significado do código (espaçamento, formatação, etc.)
+echo - refactor: Mudanças de código que não corrigem um bug nem adicionam uma funcionalidade
+echo - test: Adicionando testes ou corrigindo testes existentes
+echo - chore: Atualizações para tarefas de manutenção
 set /p type_choice="Digite o tipo de commit: "
 set /p description="Digite a descrição do commit: "
 set commit_message=%type_choice%: %description%
@@ -93,7 +100,8 @@ git push
 exit /b
 
 :list_branches
-git branch
+echo "Branches disponíveis:"
+git branch -v
 exit /b
 
 :checkout_branch
