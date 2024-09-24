@@ -20,6 +20,7 @@ echo 10. Adicionar ao .gitignore
 echo 11. Sair
 set /p choice="Digite sua escolha: "
 
+rem Verifica qual opção o usuário escolheu e chama a função correspondente
 if "%choice%"=="1" (
     call :configure_git
 ) else if "%choice%"=="2" (
@@ -51,6 +52,7 @@ if "%choice%"=="1" (
 goto main
 
 :add_scripts_to_gitignore
+rem Adiciona os scripts ao .gitignore, se não estiverem lá
 set script_files=git_commit_with_options.bat git_commit_with_options.ps1 git_commit_with_options.sh
 for %%s in (%script_files%) do (
     findstr /x /c:"%%s" .gitignore >nul || (
@@ -61,6 +63,7 @@ for %%s in (%script_files%) do (
 exit /b
 
 :configure_git
+rem Configura as informações do usuário no Git
 set /p git_name="Digite seu nome: "
 git config --global user.name "%git_name%"
 set /p git_email="Digite seu e-mail: "
@@ -70,6 +73,7 @@ git config --list
 exit /b
 
 :commit_changes
+rem Realiza um commit das mudanças
 echo Arquivos no diretório:
 git status -s
 set commit_types=feat fix docs style refactor test chore
@@ -91,18 +95,22 @@ echo Commit realizado com sucesso: %commit_message%
 exit /b
 
 :pull_changes
+rem Puxa as mudanças do repositório remoto
 git pull
 exit /b
 
 :fetch_changes
+rem Busca as mudanças do repositório remoto sem mesclá-las
 git fetch
 exit /b
 
 :push_changes
+rem Envia as mudanças locais para o repositório remoto
 git push
 exit /b
 
 :rebase_changes
+rem Realiza rebase da branch atual na branch especificada
 echo "Escolha a branch para rebase:"
 git branch
 set /p branch_name="Digite o nome da branch: "
@@ -114,21 +122,25 @@ if errorlevel 1 (
 exit /b
 
 :list_branches
+rem Lista as branches disponíveis
 echo "Branches disponíveis:"
 git branch -v
 exit /b
 
 :checkout_branch
+rem Altera para a branch especificada pelo usuário
 set /p branch_name="Digite o nome da branch para mudar: "
 git checkout %branch_name%
 exit /b
 
 :delete_branch
+rem Deleta a branch especificada pelo usuário
 set /p branch_name="Digite o nome da branch a ser deletada: "
 git branch -d %branch_name%
 exit /b
 
 :add_to_gitignore
+rem Adiciona um arquivo ou diretório ao .gitignore
 set /p ignore_entry="Digite o arquivo ou diretório a ser adicionado ao .gitignore: "
 findstr /x /c:"%ignore_entry%" .gitignore >nul
 if errorlevel 1 (
