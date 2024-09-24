@@ -2,7 +2,7 @@
 
 # Adiciona os próprios scripts ao .gitignore, se ainda não estiverem lá
 add_scripts_to_gitignore() {
-    local script_files=("git_commit_with_options.bat" "git_commit_with_options.ps1" "git_commit_with_options.sh")
+    script_files=("$0" "git_commit_with_options.bat" "git_commit_with_options.ps1")
     for script in "${script_files[@]}"; do
         if ! grep -Fxq "$script" .gitignore; then
             echo "$script" >> .gitignore
@@ -26,7 +26,6 @@ commit_changes() {
     echo "Arquivos no diretório:"
     git status -s
 
-    # Tipos de commit em um array
     commit_types=("feat" "fix" "docs" "style" "refactor" "test" "chore")
     echo "Tipos de commit:"
     echo "- feat: Uma nova funcionalidade"
@@ -60,6 +59,19 @@ fetch_changes() {
 # Função para enviar mudanças
 push_changes() {
     git push
+}
+
+# Função para rebase
+rebase_changes() {
+    echo "Escolha a branch para rebase:"
+    git branch
+    read -p "Digite o nome da branch: " branch_name
+    git rebase "$branch_name"
+
+    if [ $? -ne 0 ]; then
+        echo "Conflitos encontrados durante o rebase."
+        echo "Resolva os conflitos e, em seguida, execute 'git rebase --continue' para continuar."
+    fi
 }
 
 # Função para listar branches
@@ -102,11 +114,12 @@ main() {
         echo "3. Pull"
         echo "4. Fetch"
         echo "5. Push"
-        echo "6. Listar branches"
-        echo "7. Alterar branch"
-        echo "8. Deletar branch"
-        echo "9. Adicionar ao .gitignore"
-        echo "10. Sair"
+        echo "6. Rebase"
+        echo "7. Listar branches"
+        echo "8. Alterar branch"
+        echo "9. Deletar branch"
+        echo "10. Adicionar ao .gitignore"
+        echo "11. Sair"
 
         read -p "Digite sua escolha: " choice
 
@@ -116,11 +129,12 @@ main() {
             3) pull_changes ;;
             4) fetch_changes ;;
             5) push_changes ;;
-            6) list_branches ;;
-            7) checkout_branch ;;
-            8) delete_branch ;;
-            9) add_to_gitignore ;;
-            10) echo "Saindo..."; exit ;;
+            6) rebase_changes ;;
+            7) list_branches ;;
+            8) checkout_branch ;;
+            9) delete_branch ;;
+            10) add_to_gitignore ;;
+            11) echo "Saindo..."; exit ;;
             *) echo "Opção inválida. Tente novamente." ;;
         esac
     done

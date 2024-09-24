@@ -59,6 +59,19 @@ function Push-Changes {
     git push
 }
 
+# Função para rebase
+function Rebase-Changes {
+    Write-Host "Escolha a branch para rebase:"
+    git branch
+    $branchName = Read-Host "Digite o nome da branch"
+    git rebase $branchName
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Conflitos encontrados durante o rebase."
+        Write-Host "Resolva os conflitos e, em seguida, execute 'git rebase --continue' para continuar."
+    }
+}
+
 # Função para listar branches
 function List-Branches {
     Write-Host "Branches disponíveis:"
@@ -99,11 +112,12 @@ function Main {
         Write-Host "3. Pull"
         Write-Host "4. Fetch"
         Write-Host "5. Push"
-        Write-Host "6. Listar branches"
-        Write-Host "7. Alterar branch"
-        Write-Host "8. Deletar branch"
-        Write-Host "9. Adicionar ao .gitignore"
-        Write-Host "10. Sair"
+        Write-Host "6. Rebase"
+        Write-Host "7. Listar branches"
+        Write-Host "8. Alterar branch"
+        Write-Host "9. Deletar branch"
+        Write-Host "10. Adicionar ao .gitignore"
+        Write-Host "11. Sair"
 
         $choice = Read-Host "Digite sua escolha"
 
@@ -113,11 +127,12 @@ function Main {
             "3" { Pull-Changes }
             "4" { Fetch-Changes }
             "5" { Push-Changes }
-            "6" { List-Branches }
-            "7" { Checkout-Branch }
-            "8" { Delete-Branch }
-            "9" { Add-ToGitIgnore }
-            "10" { Write-Host "Saindo..."; exit }
+            "6" { Rebase-Changes }
+            "7" { List-Branches }
+            "8" { Checkout-Branch }
+            "9" { Delete-Branch }
+            "10" { Add-ToGitIgnore }
+            "11" { Write-Host "Saindo..."; exit }
             default { Write-Host "Opção inválida. Tente novamente." }
         }
     }

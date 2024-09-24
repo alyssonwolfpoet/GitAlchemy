@@ -12,11 +12,12 @@ echo 2. Commit
 echo 3. Pull
 echo 4. Fetch
 echo 5. Push
-echo 6. Listar branches
-echo 7. Alterar branch
-echo 8. Deletar branch
-echo 9. Adicionar ao .gitignore
-echo 10. Sair
+echo 6. Rebase
+echo 7. Listar branches
+echo 8. Alterar branch
+echo 9. Deletar branch
+echo 10. Adicionar ao .gitignore
+echo 11. Sair
 set /p choice="Digite sua escolha: "
 
 if "%choice%"=="1" (
@@ -30,14 +31,16 @@ if "%choice%"=="1" (
 ) else if "%choice%"=="5" (
     call :push_changes
 ) else if "%choice%"=="6" (
-    call :list_branches
+    call :rebase_changes
 ) else if "%choice%"=="7" (
-    call :checkout_branch
+    call :list_branches
 ) else if "%choice%"=="8" (
-    call :delete_branch
+    call :checkout_branch
 ) else if "%choice%"=="9" (
-    call :add_to_gitignore
+    call :delete_branch
 ) else if "%choice%"=="10" (
+    call :add_to_gitignore
+) else if "%choice%"=="11" (
     echo Saindo...
     exit /b 0
 ) else (
@@ -97,6 +100,17 @@ exit /b
 
 :push_changes
 git push
+exit /b
+
+:rebase_changes
+echo "Escolha a branch para rebase:"
+git branch
+set /p branch_name="Digite o nome da branch: "
+git rebase %branch_name%
+if errorlevel 1 (
+    echo "Conflitos encontrados durante o rebase."
+    echo "Resolva os conflitos e, em seguida, execute 'git rebase --continue' para continuar."
+)
 exit /b
 
 :list_branches
